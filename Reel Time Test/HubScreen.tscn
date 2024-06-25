@@ -1,0 +1,110 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5eua1a6kh18l"]
+
+[ext_resource type="Script" path="res://HubScreen.gd" id="1_vx3fm"]
+[ext_resource type="PackedScene" uid="uid://b17cgrjwjtlyx" path="res://header.tscn" id="2_qiaca"]
+[ext_resource type="PackedScene" uid="uid://bx6tbjiecu3is" path="res://GameSelectItem.tscn" id="3_vf622"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2kvcv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxlkb"]
+bg_color = Color(0.32549, 0.690196, 0.439216, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.533333, 0.901961, 0.580392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp10o"]
+bg_color = Color(0, 0.313726, 0.133333, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.137255, 0.376471, 0.211765, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="HubScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vx3fm")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" parent="PanelContainer" instance=ExtResource("2_qiaca")]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.2
+anchor_right = 0.875
+anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2kvcv")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/Control/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Control/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" parent="PanelContainer/Control/PanelContainer/ScrollContainer/HBoxContainer" instance=ExtResource("3_vf622")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.925
+anchor_right = 0.5
+anchor_bottom = 0.925
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_jxlkb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xp10o")
+text = "Play"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

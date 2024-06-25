@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://pdjmcaas5htw"]
+
+[ext_resource type="Script" path="res://TileTemplate.gd" id="1_67fsf"]
+[ext_resource type="AudioStream" uid="uid://dkhufqnthpwnw" path="res://Assets/Crazy Clowns/Audio/WinSound.wav" id="2_2iuy6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4oy3r"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.878431, 0.811765, 0.27451, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id="Animation_18qcl"]
+resource_name = "Fade_In_Out"
+length = 1.25
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 1.2)
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.25,
+"start_offset": 0.0,
+"stream": ExtResource("2_2iuy6")
+}],
+"times": PackedFloat32Array(0.925)
+}
+tracks/1/use_blend = true
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:self_modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.2)
+}
+
+[sub_resource type="Animation" id="Animation_uj1vt"]
+resource_name = "Icon_Flash_Sound"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7l7tq"]
+_data = {
+"Fade_In_Out": SubResource("Animation_18qcl"),
+"Icon_Flash_Sound": SubResource("Animation_uj1vt")
+}
+
+[node name="PanelContainer" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_4oy3r")
+script = ExtResource("1_67fsf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect"]
+libraries = {
+"": SubResource("AnimationLibrary_7l7tq")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TextureRect"]
+volume_db = -19.705
